@@ -25,6 +25,7 @@ class Common(Configuration):
         # Your apps
         'offerings_be.users',
         'offerings_be.profile',
+        'offerings_be.offerings',
 
     )
 
