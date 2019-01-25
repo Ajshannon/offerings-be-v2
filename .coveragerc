@@ -5,6 +5,6 @@ omit = *migrations*,
        *test*,
        *admin*,
        ./manage.py,
-       ./offerings-be/config/*,
-       ./offerings-be/wsgi.py,
+       ./offerings_be/config/*,
+       ./offerings_be/wsgi.py,
        *__init__*

@@ -23,8 +23,8 @@ class Common(Configuration):
         'django_filters',            # for filtering rest endpoints
 
         # Your apps
-        'offerings-be.users',
-        'offerings-be.profile',
+        'offerings_be.users',
+        'offerings_be.profile',
 
     )
 
@@ -40,9 +40,9 @@ class Common(Configuration):
     )
 
     ALLOWED_HOSTS = ["*"]
-    ROOT_URLCONF = 'offerings-be.urls'
+    ROOT_URLCONF = 'offerings_be.urls'
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
-    WSGI_APPLICATION = 'offerings-be.wsgi.application'
+    WSGI_APPLICATION = 'offerings_be.wsgi.application'
 
     # Email
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

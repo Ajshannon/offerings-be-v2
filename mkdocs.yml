@@ -1,6 +1,6 @@
-site_name: offerings-be
+site_name: offerings_be
 site_description: a restful django app for Offerings
-repo_url: https://github.com/Ajshannon/offerings-be
+repo_url: https://github.com/Ajshannon/offerings_be
 site_dir: site
 copyright: Copyright &copy; 2019, <a href="https://github.com/Ajshannon">Ajshannon</a>.
 dev_addr: 0.0.0.0:8001

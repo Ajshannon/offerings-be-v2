@@ -1,9 +1,9 @@
-# offerings-be
+# offerings_be
 
-[![Build Status](https://travis-ci.org/Ajshannon/offerings-be.svg?branch=master)](https://travis-ci.org/Ajshannon/offerings-be)
+[![Build Status](https://travis-ci.org/Ajshannon/offerings_be.svg?branch=master)](https://travis-ci.org/Ajshannon/offerings_be)
 [![Built with](https://img.shields.io/badge/Built_with-Cookiecutter_Django_Rest-F7B633.svg)](https://github.com/agconti/cookiecutter-django-rest)
 
-a restful django app for Offerings. Check out the project's [documentation](http://Ajshannon.github.io/offerings-be/).
+a restful django app for Offerings. Check out the project's [documentation](http://Ajshannon.github.io/offerings_be/).
 
 # Prerequisites
 
@@ -33,26 +33,26 @@ Deployment automated via Travis. When builds pass on the master or qa branch, Tr
 Creating the production sever:
 
 ```
-heroku create offerings-be-prod --remote prod && \
-    heroku addons:create newrelic:wayne --app offerings-be-prod && \
-    heroku addons:create heroku-postgresql:hobby-dev --app offerings-be-prod && \
+heroku create offerings_be-prod --remote prod && \
+    heroku addons:create newrelic:wayne --app offerings_be-prod && \
+    heroku addons:create heroku-postgresql:hobby-dev --app offerings_be-prod && \
     heroku config:set DJANGO_SECRET=`openssl rand -base64 32` \
         DJANGO_AWS_ACCESS_KEY_ID="Add your id" \
         DJANGO_AWS_SECRET_ACCESS_KEY="Add your key" \
-        DJANGO_AWS_STORAGE_BUCKET_NAME="offerings-be-prod" \
-        --app offerings-be-prod
+        DJANGO_AWS_STORAGE_BUCKET_NAME="offerings_be-prod" \
+        --app offerings_be-prod
 ```
 
 Creating the qa sever:
 
 ```
-heroku create `offerings-be-qa --remote qa && \
+heroku create `offerings_be-qa --remote qa && \
     heroku addons:create newrelic:wayne && \
     heroku addons:create heroku-postgresql:hobby-dev && \
     heroku config:set DJANGO_SECRET=`openssl rand -base64 32` \
         DJANGO_AWS_ACCESS_KEY_ID="Add your id" \
         DJANGO_AWS_SECRET_ACCESS_KEY="Add your key" \
-        DJANGO_AWS_STORAGE_BUCKET_NAME="offerings-be-qa" \
+        DJANGO_AWS_STORAGE_BUCKET_NAME="offerings_be-qa" \
 ```
 
 Securely add your heroku credentials to travis so it can automatically deploy your changes.
