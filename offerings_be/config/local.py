@@ -16,7 +16,7 @@ class Local(Common):
         '--nologcapture',
         '--with-coverage',
         '--with-progressive',
-        '--cover-package=offerings-be'
+        '--cover-package=offerings_be'
     ]
 
     # Mail
