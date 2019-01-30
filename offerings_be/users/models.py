@@ -6,10 +6,17 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.encoding import python_2_unicode_compatible
 from django.db.models.signals import post_save
 from rest_framework.authtoken.models import Token
+from offerings_be.profile.models import Profile
 
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # change the save model for the user class and make it create a profile 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        
+        user_profile = Profile(user=self)
+        user_profile.save()
 
     def __str__(self):
         return self.username
