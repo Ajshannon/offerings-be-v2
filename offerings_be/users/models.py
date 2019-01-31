@@ -15,8 +15,15 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         
-        user_profile = Profile(user=self)
-        user_profile.save()
+        # checks to see whether or not the user already has a profile.
+        if hasattr(self, 'profile'):
+            print("has profile")
+
+        else:
+            user_profile = Profile(user=self)
+            user_profile.save()
+
+    
 
     def __str__(self):
         return self.username
@@ -26,4 +33,3 @@ class User(AbstractUser):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-        
