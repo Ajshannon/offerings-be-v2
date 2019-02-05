@@ -21,7 +21,7 @@ class User(AbstractUser):
             print("has profile")
 
         else:
-            user_profile = Profile(user=self)
+            user_profile = Profile(user=self, username=self.username)
             user_profile.save()
 
     
