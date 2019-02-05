@@ -12,3 +12,4 @@ class Offerings(models.Model):
     image = models.URLField(max_length=200)
     date = models.DateTimeField(auto_now=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, default=None)
+
