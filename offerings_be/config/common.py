@@ -40,7 +40,7 @@ class Common(Configuration):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     )
 
-    ALLOWED_HOSTS = ["*"]
+    ALLOWED_HOSTS = ["52.14.135.120"]
     ROOT_URLCONF = 'offerings_be.urls'
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     WSGI_APPLICATION = 'offerings_be.wsgi.application'
@@ -54,10 +54,14 @@ class Common(Configuration):
 
     # Postgres
     DATABASES = {
-        'default': dj_database_url.config(
-            default='postgres://postgres:@postgres:5432/postgres',
-            conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
-        )
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'offerings',
+            'USER': 'offerings',
+            'PASSWORD': 'LetsDoThis2018',
+            'HOST': 'offerings.ccdjwdmacumw.us-east-2.rds.amazonaws.com',
+            'PORT': '5432',
+        }
     }
 
     # General
