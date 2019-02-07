@@ -40,7 +40,7 @@ class Common(Configuration):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     )
 
-    ALLOWED_HOSTS = ["*"]
+    ALLOWED_HOSTS = ["52.14.135.120"]
     ROOT_URLCONF = 'offerings_be.urls'
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     WSGI_APPLICATION = 'offerings_be.wsgi.application'
@@ -54,11 +54,15 @@ class Common(Configuration):
 
     # Postgres
     DATABASES = {
-        'default': dj_database_url.config(
-            default='postgres://postgres:@postgres:5432/postgres',
-            conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
-        )
+	'default': {
+    		'ENGINE': 'django.db.backends.postgresql',
+    		'NAME': 'offerings',
+    		'USER': 'offerings',
+    		'PASSWORD': 'LetsDoThis2018',
+    		'HOST': 'offerings.ccdjwdmacumw.us-east-2.rds.amazonaws.com',
+    		'PORT': '5432',
     }
+}
 
     # General
     APPEND_SLASH = False
@@ -73,8 +77,9 @@ class Common(Configuration):
 
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/2.0/howto/static-files/
-    STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), 'static'))
-    STATICFILES_DIRS = []
+    #STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), 'static'))
+    STATIC_ROOT = "/home/ec2-user/offerings-be-v2/static"
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, "static/"),)
     STATIC_URL = '/static/'
     STATICFILES_FINDERS = (
         'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -103,7 +108,7 @@ class Common(Configuration):
 
     # Set DEBUG to False as a default for safety
     # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-    DEBUG = strtobool(os.getenv('DJANGO_DEBUG', 'no'))
+    DEBUG = True
 
     # Password Validation
     # https://docs.djangoproject.com/en/2.0/topics/auth/passwords/#module-django.contrib.auth.password_validation
@@ -201,3 +206,5 @@ class Common(Configuration):
             'rest_framework.authentication.TokenAuthentication',
         )
     }
+   # STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
