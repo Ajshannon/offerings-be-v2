@@ -58,7 +58,7 @@ class Common(Configuration):
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'offerings',
             'USER': 'offerings',
-            'PASSWORD': 'LetsDoThis2018',
+            'PASSWORD': ,
             'HOST': 'offerings.ccdjwdmacumw.us-east-2.rds.amazonaws.com',
             'PORT': '5432',
         }
