@@ -8,6 +8,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class Common(Configuration):
 
+    # Permissions for Cors
+    CORS_ORIGIN_ALLOW_ALL = True
+    
     INSTALLED_APPS = (
         'django.contrib.admin',
         'django.contrib.auth',
@@ -15,7 +18,20 @@ class Common(Configuration):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'django.contrib.sites',
+        
 
+        # All-Auth
+        'allauth',
+        'allauth.account',
+        'allauth.socialaccount',
+
+        # Rest-Auth
+        'rest_auth',
+        'rest_auth.registration',
+
+        # Cors
+        'corsheaders',
 
         # Third party apps
         'rest_framework',            # utilities for rest apis
@@ -28,16 +44,22 @@ class Common(Configuration):
         'offerings_be.offerings',
 
     )
-
+    CSRF_COOKIE_NAME = 'X-CSRFToken'
+    SITE_ID = 1
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
     MIDDLEWARE = (
+        # Cors middleware
+        'corsheaders.middleware.CorsMiddleware',
+        'django.middleware.common.CommonMiddleware',
+
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+
     )
 
     ALLOWED_HOSTS = ["*"]
@@ -201,3 +223,9 @@ class Common(Configuration):
             'rest_framework.authentication.TokenAuthentication',
         )
     }
+
+    # All-Auth settings
+
+    ACCOUNT_EMAIL_VERIFICATION = 'none'
+    ACCOUNT_AUTHENTIFICATION_METHOD = 'username',
+    ACCOUNT_EMAIL_REQUIRED = False

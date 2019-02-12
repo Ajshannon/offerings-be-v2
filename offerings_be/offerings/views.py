@@ -6,6 +6,7 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from .models import Offerings
 
 # class OfferingsViewSet(viewsets.GenericViewSet, RetrieveUpdateDestroyAPIView):
+
 class OfferingsViewSet(viewsets.ModelViewSet, RetrieveUpdateDestroyAPIView):
     """
     Updates and retrieves user accounts
