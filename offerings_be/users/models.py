@@ -24,7 +24,6 @@ class User(AbstractUser):
             user_profile = Profile(user=self, username=self.username)
             user_profile.save()
 
-    
 
     def __str__(self):
         return self.username

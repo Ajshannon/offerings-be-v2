@@ -1,3 +1,6 @@
+# Cors
+django-cors-headers==2.4.0
+
 # Core
 pytz==2018.9
 Django==2.1.5
@@ -18,6 +21,10 @@ djangorestframework==3.9.1
 Markdown==3.0.1
 django-filter==2.1.0
 
+# Django-Auth
+django-allauth==0.37.1
+django-rest-auth==0.9.3
+
 # Developer Tools
 ipdb==0.11
 ipython==7.2.0
@@ -34,4 +41,3 @@ coverage==4.5.2
 # Static and Media Storage
 django-storages==1.7.1
 boto3==1.9.83
-
