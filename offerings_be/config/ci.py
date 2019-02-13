@@ -1,14 +1,17 @@
 import os
-from os.path import join
-from distutils.util import strtobool
-import dj_database_url
 from configurations import Configuration
+from os.path import join
+import dj_database_url
+from distutils.util import strtobool
+
+
+
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-class Common(Configuration):
-
-    # Permissions for Cors
+class Ci(Configuration):
     CORS_ORIGIN_ALLOW_ALL = True
     
     INSTALLED_APPS = (
@@ -207,25 +210,39 @@ class Common(Configuration):
     AUTH_USER_MODEL = 'users.User'
 
     # Django Rest Framework
-    # REST_FRAMEWORK = {
-    #     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    #     'PAGE_SIZE': int(os.getenv('DJANGO_PAGINATION_LIMIT', 10)),
-    #     'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S%z',
-    #     'DEFAULT_RENDERER_CLASSES': (
-    #         'rest_framework.renderers.JSONRenderer',
-    #         'rest_framework.renderers.BrowsableAPIRenderer',
-    #     ),
-    #     'DEFAULT_PERMISSION_CLASSES': [
-    #         'rest_framework.permissions.IsAuthenticated',
-    #     ],
-    #     'DEFAULT_AUTHENTICATION_CLASSES': (
-    #         'rest_framework.authentication.SessionAuthentication',
-    #         'rest_framework.authentication.TokenAuthentication',
-    #     )
-    # }
+    
 
     # All-Auth settings
 
     ACCOUNT_EMAIL_VERIFICATION = 'none'
     ACCOUNT_AUTHENTIFICATION_METHOD = 'username',
     ACCOUNT_EMAIL_REQUIRED = False
+    DEBUG = True
+
+    # Testing
+    INSTALLED_APPS += ('django_nose',)
+    TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+    NOSE_ARGS = [
+        BASE_DIR,
+        '-s',
+        '--nologcapture',
+        '--with-coverage',
+        '--with-progressive',
+        '--cover-package=offerings_be'
+    ]
+
+    # Mail
+    EMAIL_HOST = 'localhost'
+    EMAIL_PORT = 1025
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    REST_FRAMEWORK = {
+        'DEFAULT_PAGINATION_CLASS': None,
+        'PAGE_SIZE': int(os.getenv('DJANGO_PAGINATION_LIMIT', 10)),
+        'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S%z',
+        'DEFAULT_RENDERER_CLASSES': (
+            'rest_framework.renderers.JSONRenderer',
+            'rest_framework.renderers.BrowsableAPIRenderer',
+        ),
+        'DEFAULT_PERMISSION_CLASSES': [],
+        'DEFAULT_AUTHENTICATION_CLASSES': [],
+    }
