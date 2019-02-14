@@ -44,6 +44,7 @@ class Common(Configuration):
         'offerings_be.offerings',
 
     )
+    AUTH_USER_MODEL = 'offerings_be.users.User'
     CSRF_COOKIE_NAME = 'X-CSRFToken'
     SITE_ID = 1
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
