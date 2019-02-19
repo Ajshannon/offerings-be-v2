@@ -72,4 +72,13 @@ git push origin master:qa && \
 git push origin master
 ```
 
+# Testing
+
+To run pytest, run 'docker-compose run web pytest -v' twice in your terminal.  The first run is required to build the test db.
+
+Occassionally a postgres error will occur if docker-compose is run many times.  In this case, please run
+'docker kill $(docker ps -q) && docker rm $(docker ps -a -q) && docker-compose build.
+
 You're now ready to continuously ship! ✨ 💅 🛳
+
+
