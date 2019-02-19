@@ -206,7 +206,9 @@ class Common(Configuration):
 
     # Custom user app
     AUTH_USER_MODEL = 'users.User'
-
+    REST_AUTH_SERIALIZERS = {
+        'USER_DETAILS_SERIALIZER': 'offerings_be.users.serializers.UserSerializer'
+    }
     # Django Rest Framework
     REST_FRAMEWORK = {
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -230,3 +232,8 @@ class Common(Configuration):
     ACCOUNT_EMAIL_VERIFICATION = 'none'
     ACCOUNT_AUTHENTIFICATION_METHOD = 'username',
     ACCOUNT_EMAIL_REQUIRED = False
+
+    JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+    'offerings_be.users.utils.jwt_response_payload_handler', #app_name is name of the app which contains utils.py
+}
