@@ -209,6 +209,11 @@ class Common(Configuration):
     REST_AUTH_SERIALIZERS = {
         'USER_DETAILS_SERIALIZER': 'offerings_be.users.serializers.UserSerializer'
     }
+    REST_AUTH_REGISTER_SERIALIZERS = {
+        'REGISTER_SERIALIZER': 'offerings_be.users.serializers.CustomRegisterSerializer'
+    }
+
+
     # Django Rest Framework
     REST_FRAMEWORK = {
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

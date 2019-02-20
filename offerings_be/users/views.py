@@ -5,7 +5,6 @@ from .permissions import IsUserOrReadOnly
 from .serializers import UserSerializer
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
-
 class UserViewSet(viewsets.ModelViewSet, RetrieveUpdateDestroyAPIView):
     """
     Updates and retrieves user accounts
