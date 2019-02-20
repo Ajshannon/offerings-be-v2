@@ -5,5 +5,5 @@ class OfferingsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Offerings
-        fields = ('id', 'title', 'description', 'phone', 'distance', 'notify', 'image', 'date', 'profile')
+        fields = ('id', 'title', 'description', 'phone', 'distance', 'notify', 'image', 'date')
         read_only_fields = ('id', 'date', )

@@ -14,12 +14,3 @@ class OfferingsViewSet(viewsets.ModelViewSet, RetrieveUpdateDestroyAPIView):
     queryset = Offerings.objects.all()
     serializer_class = OfferingsSerializer
 
-
-# class OfferingsCreateViewSet(mixins.CreateModelMixin,
-#                         viewsets.GenericViewSet):
-#     """
-#     Creates user accounts
-#     """
-#     queryset = Offerings.objects.all()
-#     serializer_class = OfferingsSerializer
-
