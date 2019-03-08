@@ -9,6 +9,7 @@ class ProfileViewSet(viewsets.ModelViewSet, RetrieveUpdateDestroyAPIView):
     """
     Updates and retrieves user accounts
     """
+    lookup_field = 'user'
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = (AllowAny,)
