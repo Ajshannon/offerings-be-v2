@@ -20,6 +20,8 @@ class Common(Configuration):
         'django.contrib.staticfiles',
         'django.contrib.sites',
         
+        #Phone Field
+        'phonenumber_field',
 
         # All-Auth
         'allauth',
@@ -42,6 +44,7 @@ class Common(Configuration):
         'offerings_be.users',
         'offerings_be.profile',
         'offerings_be.offerings',
+
 
     )
     AUTH_USER_MODEL = 'offerings_be.users.User'
