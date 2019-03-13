@@ -1,14 +1,17 @@
 import os
-from os.path import join
-from distutils.util import strtobool
-import dj_database_url
 from configurations import Configuration
+from os.path import join
+import dj_database_url
+from distutils.util import strtobool
+
+
+
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-class Common(Configuration):
-
-    # Permissions for Cors
+class Ci(Configuration):
     CORS_ORIGIN_ALLOW_ALL = True
     
     INSTALLED_APPS = (
@@ -20,8 +23,6 @@ class Common(Configuration):
         'django.contrib.staticfiles',
         'django.contrib.sites',
         
-        #Phone Field
-        'phonenumber_field',
 
         # All-Auth
         'allauth',
@@ -45,9 +46,7 @@ class Common(Configuration):
         'offerings_be.profile',
         'offerings_be.offerings',
 
-
     )
-    AUTH_USER_MODEL = 'offerings_be.users.User'
     CSRF_COOKIE_NAME = 'X-CSRFToken'
     SITE_ID = 1
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
@@ -66,7 +65,7 @@ class Common(Configuration):
 
     )
 
-    ALLOWED_HOSTS = ["52.14.135.120"]
+    ALLOWED_HOSTS = ["*"]
     ROOT_URLCONF = 'offerings_be.urls'
     SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
     WSGI_APPLICATION = 'offerings_be.wsgi.application'
@@ -80,15 +79,11 @@ class Common(Configuration):
 
     # Postgres
     DATABASES = {
-	'default': {
-    		'ENGINE': 'django.db.backends.postgresql',
-    		'NAME': 'offerings',
-    		'USER': 'offerings',
-    		'PASSWORD': 'LetsDoThis2018',
-    		'HOST': 'offerings.ccdjwdmacumw.us-east-2.rds.amazonaws.com',
-    		'PORT': '5432',
+        'default': dj_database_url.config(
+            default='postgres://postgres:@postgres:5432/postgres',
+            conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
+        )
     }
-}
 
     # General
     APPEND_SLASH = False
@@ -103,9 +98,8 @@ class Common(Configuration):
 
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/2.0/howto/static-files/
-    #STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), 'static'))
-    STATIC_ROOT = "/home/ec2-user/offerings-be-v2/static"
-    STATICFILES_DIRS = (os.path.join(BASE_DIR, "static/"),)
+    STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), 'static'))
+    STATICFILES_DIRS = []
     STATIC_URL = '/static/'
     STATICFILES_FINDERS = (
         'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -134,7 +128,7 @@ class Common(Configuration):
 
     # Set DEBUG to False as a default for safety
     # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-    DEBUG = True
+    DEBUG = strtobool(os.getenv('DJANGO_DEBUG', 'no'))
 
     # Password Validation
     # https://docs.djangoproject.com/en/2.0/topics/auth/passwords/#module-django.contrib.auth.password_validation
@@ -214,44 +208,41 @@ class Common(Configuration):
 
     # Custom user app
     AUTH_USER_MODEL = 'users.User'
-    REST_AUTH_SERIALIZERS = {
-        'USER_DETAILS_SERIALIZER': 'offerings_be.users.serializers.UserSerializer'
-    }
-    REST_AUTH_REGISTER_SERIALIZERS = {
-        'REGISTER_SERIALIZER': 'offerings_be.users.serializers.CustomRegisterSerializer'
-    }
-
 
     # Django Rest Framework
-    REST_FRAMEWORK = {
-        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-        'PAGE_SIZE': int(os.getenv('DJANGO_PAGINATION_LIMIT', 10)),
-        'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S%z',
-        'DEFAULT_RENDERER_CLASSES': (
-            'rest_framework.renderers.JSONRenderer',
-            'rest_framework.renderers.BrowsableAPIRenderer',
-        ),
-        'DEFAULT_PERMISSION_CLASSES': [
-            'rest_framework.permissions.IsAuthenticated',
-        ],
-        'DEFAULT_AUTHENTICATION_CLASSES': (
-            'rest_framework.authentication.SessionAuthentication',
-            'rest_framework.authentication.TokenAuthentication',
-        )
-    }
-<<<<<<< HEAD
-   # STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-
-=======
+    
 
     # All-Auth settings
 
     ACCOUNT_EMAIL_VERIFICATION = 'none'
     ACCOUNT_AUTHENTIFICATION_METHOD = 'username',
     ACCOUNT_EMAIL_REQUIRED = False
+    DEBUG = True
 
-    JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER':
-    'offerings_be.users.utils.jwt_response_payload_handler', #app_name is name of the app which contains utils.py
-}
->>>>>>> d861476afbf8b259a06147c6e2493aae8b3dbc3b
+    # Testing
+    INSTALLED_APPS += ('django_nose',)
+    TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+    NOSE_ARGS = [
+        BASE_DIR,
+        '-s',
+        '--nologcapture',
+        '--with-coverage',
+        '--with-progressive',
+        '--cover-package=offerings_be'
+    ]
+
+    # Mail
+    EMAIL_HOST = 'localhost'
+    EMAIL_PORT = 1025
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    REST_FRAMEWORK = {
+        'DEFAULT_PAGINATION_CLASS': None,
+        'PAGE_SIZE': int(os.getenv('DJANGO_PAGINATION_LIMIT', 10)),
+        'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S%z',
+        'DEFAULT_RENDERER_CLASSES': (
+            'rest_framework.renderers.JSONRenderer',
+            'rest_framework.renderers.BrowsableAPIRenderer',
+        ),
+        'DEFAULT_PERMISSION_CLASSES': [],
+        'DEFAULT_AUTHENTICATION_CLASSES': [],
+    }

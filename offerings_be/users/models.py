@@ -11,6 +11,7 @@ from offerings_be.profile.models import Profile
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
     # change the save model for the user class and make it create a profile 
     # change the save model for the user class and make it create a profile 
     def save(self, *args, **kwargs):
@@ -23,6 +24,10 @@ class User(AbstractUser):
         else:
             user_profile = Profile(user=self, username=self.username)
             user_profile.save()
+<<<<<<< HEAD
+=======
+
+>>>>>>> d861476afbf8b259a06147c6e2493aae8b3dbc3b
 
     def __str__(self):
         return self.username
@@ -32,4 +37,3 @@ class User(AbstractUser):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-        
