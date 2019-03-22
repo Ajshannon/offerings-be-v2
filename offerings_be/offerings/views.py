@@ -13,4 +13,5 @@ class OfferingsViewSet(viewsets.ModelViewSet, RetrieveUpdateDestroyAPIView):
     """
     queryset = Offerings.objects.all()
     serializer_class = OfferingsSerializer
+    permission_classes = (IsUserOrReadOnly,)
 

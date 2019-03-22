@@ -9,4 +9,5 @@ class Offerings(models.Model):
     address = models.CharField(max_length=100)
     image = models.URLField(max_length=200)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, default=None)
+    # author = models.CharField(max_length=50, default="username", null=True, blank=True)
     date = models.DateTimeField(auto_now=True)
